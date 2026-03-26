@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İyi ki Doğdun Mayaaaa'm ❤️</title>
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --bg2:#14141c;
+      --text:#f5f3ef;
+      --muted:rgba(245,243,239,.72);
+      --card:rgba(255,255,255,.07);
+      --border:rgba(255,255,255,.12);
+      --soft:#f5e6d8;
+      --pink:#f2c6d4;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+
+    html,body{
+      margin:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 700px at 20% 20%, rgba(231,168,187,.12), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(216,197,162,.10), transparent 60%),
+        radial-gradient(1200px 700px at 50% 100%, rgba(245,230,216,.06), transparent 65%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image: radial-gradient(rgba(255,255,255,.22) 0.7px, transparent 0.7px);
+      background-size:7px 7px;
+      mix-blend-mode:soft-light;
+    }
+
+    .scene{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+      transition:opacity .65s ease, transform .65s ease;
+    }
+
+    .scene.active{
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0);
+    }
+
+    .panel{
+      width:min(980px, 96vw);
+      max-height:min(88vh, 920px);
+      overflow:auto;
+      padding:34px 26px;
+      border-radius:26px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+      text-align:center;
+    }
+
+    h1,h2,h3,p{ margin:0; }
+    h1{ font-size:clamp(30px, 5vw, 56px); letter-spacing:1px; }
+    h2{ font-size:clamp(26px, 4vw, 40px); }
+    h3{ font-size:clamp(20px, 3vw, 28px); }
+
+    p{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:clamp(15px, 2vw, 18px);
+      line-height:1.65;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 24px;
+      font-size:16px;
+      font-weight:700;
+      transition:transform .15s ease, opacity .2s ease, box-shadow .25s ease, background .25s ease;
+      margin-top:24px;
+      min-width:160px;
+    }
+
+    button:hover{ transform:translateY(-1px); }
+    button:active{ transform:translateY(0); }
+
+    .primary{
+      background:linear-gradient(90deg, var(--soft), var(--pink));
+      color:#171717;
+      box-shadow:0 16px 40px rgba(231,168,187,.18);
+    }
+
+    .secondary{
+      background:rgba(255,255,255,.1);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.14);
+    }
+
+    .tiny{
+      min-width:auto;
+      padding:10px 14px;
+      font-size:14px;
+      margin-top:0;
+    }
+
+    .row{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .fade-up{
+      animation:fadeUp .7s ease both;
+    }
+
+    @keyframes fadeUp{
+      from{ opacity:0; transform:translateY(16px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    .heart{
+      position:fixed;
+      bottom:-24px;
+      font-size:16px;
+      opacity:.4;
+      pointer-events:none;
+      animation:floatUp linear forwards;
+      filter:drop-shadow(0 8px 14px rgba(231,168,187,.25));
+    }
+
+    @keyframes floatUp{
+      from{ transform:translateY(0) translateX(0) scale(.9); opacity:0; }
+      15%{ opacity:.4; }
+      to{ transform:translateY(-110vh) translateX(var(--drift)) scale(1.12); opacity:0; }
+    }
+
+    .boo-wrap{
+      width:150px;
+      height:150px;
+      margin:14px auto 8px;
+      position:relative;
+    }
+
+    .boo{
+      width:100%;
+      height:100%;
+      border-radius:50% 50% 44% 44%;
+      background:linear-gradient(180deg, #fff, #f0eef4);
+      position:relative;
+      box-shadow:0 10px 35px rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .boo::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:-16px;
+      height:44px;
+      background:
+        radial-gradient(circle at 14% 0, #fff 18px, transparent 19px),
+        radial-gradient(circle at 38% 0, #fff 18px, transparent 19px),
+        radial-gradient(circle at 62% 0, #fff 18px, transparent 19px),
+        radial-gradient(circle at 86% 0, #fff 18px, transparent 19px);
+    }
+
+    .eye{
+      position:absolute;
+      top:46px;
+      width:18px;
+      height:22px;
+      border-radius:50%;
+      background:#222;
+    }
+
+    .eye.left{ left:44px; }
+    .eye.right{ right:44px; }
+
+    .mouth{
+      position:absolute;
+      width:26px;
+      height:18px;
+      border-radius:0 0 18px 18px;
+      border:3px solid #222;
+      border-top:none;
+      left:50%;
+      transform:translateX(-50%);
+      top:82px;
+    }
+
+    .puzzleWrap{
+      margin-top:26px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .puzzleGrid{
+      display:grid;
+      grid-template-columns:repeat(2, 110px);
+      gap:14px;
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .puzzleCell{
+      width:110px;
+      height:110px;
+      border:none;
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+      color:var(--text);
+      font-size:34px;
+      cursor:pointer;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 12px 24px rgba(0,0,0,.18);
+      transition:transform .18s ease, box-shadow .25s ease, background .25s ease;
+      margin-top:0;
+      min-width:auto;
+      padding:0;
+    }
+
+    .puzzleCell:hover{
+      transform:translateY(-2px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 16px 28px rgba(0,0,0,.24);
+    }
+
+    .puzzleCell.correct{
+      background:linear-gradient(180deg, var(--soft), #ead7c6);
+      color:#171717;
+      box-shadow:0 0 24px rgba(245,230,216,.22);
+    }
+
+    .puzzleCell.wrong{
+      animation:wrongShake .28s ease;
+    }
+
+    @keyframes wrongShake{
+      0%{transform:translateX(0)}
+      25%{transform:translateX(-4px)}
+      50%{transform:translateX(4px)}
+      75%{transform:translateX(-2px)}
+      100%{transform:translateX(0)}
+    }
+
+    .messageBig{
+      margin-top:26px;
+      font-size:clamp(24px, 4vw, 38px);
+      font-weight:800;
+      letter-spacing:1px;
+      opacity:0;
+      transition:opacity .5s ease;
+    }
+
+    .messageBig.show{ opacity:1; }
+
+    .hiddenBtn{
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .5s ease;
+    }
+
+    .hiddenBtn.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .pearWrap{
+      position:relative;
+      width:min(720px, 100%);
+      height:340px;
+      margin:28px auto 12px;
+      cursor:pointer;
+      overflow:hidden;
+      border-radius:28px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .pearSvg{
+      width:min(320px, 58vw);
+      height:auto;
+      overflow:visible;
+      filter:drop-shadow(0 16px 26px rgba(0,0,0,.18));
+    }
+
+    .pear-seg{
+      transition:
+        transform .65s cubic-bezier(.2,.9,.2,1),
+        opacity .5s ease,
+        fill .45s ease,
+        filter .45s ease;
+      transform-box:fill-box;
+      transform-origin:center;
+      opacity:.94;
+    }
+
+    .pear-seg.joined{
+      opacity:1;
+      filter:saturate(1.05);
+    }
+
+    .seg1-start{ transform:translate(-90px,-70px) rotate(-18deg) scale(.92); }
+    .seg2-start{ transform:translate(90px,-70px) rotate(18deg) scale(.92); }
+    .seg3-start{ transform:translate(-100px,90px) rotate(10deg) scale(.94); }
+    .seg4-start{ transform:translate(100px,90px) rotate(-10deg) scale(.94); }
+
+    .seg-placed{ transform:translate(0,0) rotate(0deg) scale(1); }
+
+    .pearStemSvg,
+    .pearLeafSvg{
+      opacity:0;
+      transition:opacity .35s ease, transform .35s ease;
+      transform-origin:center;
+    }
+
+    .pearStemSvg.show,
+    .pearLeafSvg.show{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    .pearStemSvg{ transform:translateY(-6px) scale(.9); }
+    .pearLeafSvg{ transform:translateY(-6px) scale(.9); }
+
+    .pearGlow{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:0;
+      height:0;
+      background:radial-gradient(circle, rgba(255,255,255,.24), transparent 70%);
+      transform:translate(-50%, -50%);
+      opacity:0;
+      transition:.55s ease;
+      pointer-events:none;
+    }
+
+    .pearGlow.show{
+      width:240px;
+      height:240px;
+      opacity:1;
+    }
+
+    .pearHint{
+      position:absolute;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      font-size:14px;
+      color:rgba(245,243,239,.56);
+      letter-spacing:.4px;
+      transition:opacity .3s ease;
+    }
+
+    .pearHint.hide{
+      opacity:0;
+    }
+
+    #pearText{
+      margin-top:30px;
+      opacity:0;
+      filter:blur(8px);
+      transform:translateY(8px);
+      transition:opacity .6s ease, filter .6s ease, transform .6s ease;
+    }
+
+    #pearText.show{
+      opacity:1;
+      filter:blur(0);
+      transform:translateY(0);
+    }
+
+    .treeScene{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .forestBox{
+      position:relative;
+      width:min(420px, 92vw);
+      height:220px;
+      margin-top:10px;
+      border-radius:24px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .forestBox::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:44px;
+      background:linear-gradient(180deg, rgba(114,145,82,.14), rgba(114,145,82,.22));
+    }
+
+    .forestTree{
+      position:absolute;
+      bottom:22px;
+      width:16px;
+      background:linear-gradient(180deg, #7c5236, #603c27);
+      border-radius:12px;
+      transition:all .45s ease;
+    }
+
+    .forestTree::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:linear-gradient(180deg, #97c184, #6e985d);
+      transition:all .45s ease;
+    }
+
+    .forestTree.small{
+      height:18px;
+    }
+    .forestTree.small::before{
+      width:24px;
+      height:24px;
+      top:-14px;
+    }
+
+    .forestTree.medium{
+      height:28px;
+    }
+    .forestTree.medium::before{
+      width:34px;
+      height:34px;
+      top:-20px;
+    }
+
+    .forestTree.large{
+      height:40px;
+    }
+    .forestTree.large::before{
+      width:46px;
+      height:46px;
+      top:-28px;
+      box-shadow:
+        -10px 8px 0 -4px rgba(118,164,96,.95),
+         10px 8px 0 -4px rgba(118,164,96,.95);
+    }
+
+    .detailBox{
+      margin-top:18px;
+      padding:16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      min-height:76px;
+    }
+
+    .cards{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+      gap:14px;
+      text-align:left;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      transition:transform .16s ease, background .2s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.09);
+    }
+
+    .card .emoji{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .card .title{
+      font-weight:800;
+      margin-bottom:6px;
+      font-size:18px;
+    }
+
+    .card .desc{
+      color:var(--muted);
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .giftGrid{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:16px;
+    }
+
+    .giftCard{
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:20px;
+      text-align:left;
+      box-shadow:var(--shadow);
+      min-height:210px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .giftIcon{
+      font-size:36px;
+      margin-bottom:10px;
+    }
+
+    .giftCard.roses::after{
+      content:"🌹 🌹 🌹";
+      position:absolute;
+      right:14px;
+      bottom:12px;
+      opacity:.24;
+      font-size:28px;
+      letter-spacing:4px;
+    }
+
+    .giftCard.booGift::after{
+      content:"";
+      position:absolute;
+      right:14px;
+      bottom:12px;
+      width:90px;
+      height:90px;
+      background:radial-gradient(circle, rgba(217,143,210,.16), transparent 70%);
+    }
+
+    .booGirlIcon{
+      position:relative;
+      width:54px;
+      height:68px;
+      margin-bottom:10px;
+    }
+
+    .booHair{
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:34px;
+      height:18px;
+      background:#2b1a14;
+      border-radius:18px 18px 10px 10px;
+    }
+
+    .booFace{
+      position:absolute;
+      top:10px;
+      left:50%;
+      transform:translateX(-50%);
+      width:30px;
+      height:28px;
+      background:#f7d9c9;
+      border-radius:50%;
+    }
+
+    .booBody{
+      position:absolute;
+      top:34px;
+      left:50%;
+      transform:translateX(-50%);
+      width:40px;
+      height:30px;
+      background:linear-gradient(180deg, #d98fd2, #b56ec5);
+      border-radius:14px;
+    }
+
+    .finalLine{
+      font-size:clamp(28px, 4vw, 44px);
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    .smallFinal{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    @media (max-width: 700px){
+      .pearWrap{
+        height:300px;
+      }
+    }
+
+    @media (max-width: 560px){
+      .panel{
+        padding:26px 18px;
+        border-radius:22px;
+      }
+
+      .puzzleGrid{
+        grid-template-columns:repeat(2, 92px);
+        gap:12px;
+        padding:14px;
+      }
+
+      .puzzleCell{
+        width:92px;
+        height:92px;
+        font-size:28px;
+        border-radius:18px;
+      }
+
+      .pearSvg{
+        width:min(290px, 80vw);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="scene active" id="scene1">
+    <div class="panel fade-up">
+      <h1>Bu site sadece bir kişi için hazırlandı.</h1>
+      <p>Ve o kişi şu an bunu okuyorsa, doğru zamanda doğru yerde.</p>
+      <button class="primary" onclick="nextScene()">Devam et</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene2">
+    <div class="panel fade-up">
+      <div class="boo-wrap">
+        <div class="boo">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="mouth"></div>
+        </div>
+      </div>
+      <h2>İyi ki doğdun Booooo’mm.</h2>
+      <p>Bu sefer iyi geceler demeden önce sana küçük bir şey bırakmak istedim.</p>
+      <button class="primary" onclick="nextScene()">Guciiguciiguu</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene3">
+    <div class="panel fade-up">
+      <h2>Bu bir doğum günü sitesi.</h2>
+      <p>
+        Ama normal olanlardan değil.<br>
+        Senin sevdiğin şeylerden, sana küçük bir doğum günü bırakmak istedim.
+      </p>
+      <button class="primary" onclick="nextScene()">Başlayalım</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene4">
+    <div class="panel fade-up">
+      <h2>Bölüm 1 — Çözmek</h2>
+      <p>
+        Sen bazı şeyleri çözmeyi seviyorsun.<br>
+        Özellikle küçük ama anlamlı olanları.
+      </p>
+
+      <div class="puzzleWrap">
+        <div class="puzzleGrid" id="puzzleGrid">
+          <button class="puzzleCell" data-index="0" onclick="pickPuzzle(this)">✦</button>
+          <button class="puzzleCell" data-index="1" onclick="pickPuzzle(this)">○</button>
+          <button class="puzzleCell" data-index="2" onclick="pickPuzzle(this)">✦</button>
+          <button class="puzzleCell" data-index="3" onclick="pickPuzzle(this)">◇</button>
+        </div>
+      </div>
+
+      <div id="sudokuMessage" class="messageBig"></div>
+      <p id="sudokuSub" style="opacity:0; transition:opacity .5s ease;">
+        Bazı şeyler çözülünce daha net oluyor.
+      </p>
+      <button id="sudokuNextBtn" class="primary hiddenBtn" onclick="nextScene()">Devam et</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene5">
+    <div class="panel fade-up">
+      <h2>Bölüm 2 — Birleştirmek</h2>
+      <p>Küçük parçalar bazen tek başına hiçbir şey gibi durur.</p>
+
+      <div class="pearWrap" onclick="placePearPiece()">
+        <div class="pearGlow" id="pearGlow"></div>
+
+        <svg class="pearSvg" viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <path id="pearShapePath" d="
+              M160 66
+              C131 66, 108 83, 100 109
+              C93 132, 100 152, 112 168
+              C80 181, 54 211, 54 262
+              C54 325, 101 354, 160 354
+              C219 354, 266 325, 266 262
+              C266 211, 240 181, 208 168
+              C220 152, 227 132, 220 109
+              C212 83, 189 66, 160 66 Z" />
+            <clipPath id="clipTL">
+              <rect x="34" y="42" width="126" height="140" rx="18" />
+            </clipPath>
+            <clipPath id="clipTR">
+              <rect x="160" y="42" width="126" height="140" rx="18" />
+            </clipPath>
+            <clipPath id="clipBL">
+              <rect x="26" y="176" width="138" height="176" rx="18" />
+            </clipPath>
+            <clipPath id="clipBR">
+              <rect x="156" y="176" width="138" height="176" rx="18" />
+            </clipPath>
+          </defs>
+
+          <g id="seg1" class="pear-seg seg1-start">
+            <g clip-path="url(#clipTL)">
+              <use href="#pearShapePath" fill="#e4e8a3"/>
+            </g>
+          </g>
+
+          <g id="seg2" class="pear-seg seg2-start">
+            <g clip-path="url(#clipTR)">
+              <use href="#pearShapePath" fill="#d7df85"/>
+            </g>
+          </g>
+
+          <g id="seg3" class="pear-seg seg3-start">
+            <g clip-path="url(#clipBL)">
+              <use href="#pearShapePath" fill="#bfd55c"/>
+            </g>
+          </g>
+
+          <g id="seg4" class="pear-seg seg4-start">
+            <g clip-path="url(#clipBR)">
+              <use href="#pearShapePath" fill="#aeca4d"/>
+            </g>
+          </g>
+
+          <rect id="pearStemSvg" class="pearStemSvg" x="145" y="28" width="12" height="58" rx="6" fill="#6b472d" transform="rotate(-10 151 57)" />
+          <ellipse id="pearLeafSvg" class="pearLeafSvg" cx="183" cy="36" rx="20" ry="11" fill="#6faa45" transform="rotate(10 183 36)" />
+        </svg>
+
+        <div class="pearHint" id="pearHint">4 kez dokun</div>
+      </div>
+
+      <div id="pearText" class="messageBig"></div>
+      <p id="pearSub" style="opacity:0; transition:opacity .5s ease;">
+        Ama doğru yerde birleşince anlam kazanıyor.
+      </p>
+      <button id="pearNextBtn" class="primary hiddenBtn" onclick="nextScene()">Bir şey daha var</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene6">
+    <div class="panel fade-up">
+      <h2>Bölüm 3 — Büyümek</h2>
+      <p>
+        Senin adına dikilen ağaçlar...<br>
+        hepsi bir anda büyümedi.
+      </p>
+
+      <div class="treeScene">
+        <div class="forestBox" id="forestBox">
+          <div class="forestTree small show" id="f1" style="left:18px;"></div>
+          <div class="forestTree small show" id="f2" style="left:52px;"></div>
+          <div class="forestTree small show" id="f3" style="left:86px;"></div>
+          <div class="forestTree small show" id="f4" style="left:120px;"></div>
+          <div class="forestTree small show" id="f5" style="left:154px;"></div>
+          <div class="forestTree small show" id="f6" style="left:188px;"></div>
+          <div class="forestTree small show" id="f7" style="left:222px;"></div>
+          <div class="forestTree small show" id="f8" style="left:256px;"></div>
+          <div class="forestTree small show" id="f9" style="left:290px;"></div>
+          <div class="forestTree small show" id="f10" style="left:324px;"></div>
+		  <div class="forestTree small show" id="f10" style="left:358px;"></div>
+
+        </div>
+
+        <div class="row">
+          <button class="secondary tiny" onclick="growForest(1)">Fidanlar</button>
+          <button class="secondary tiny" onclick="growForest(2)">Biraz büyüsün</button>
+          <button class="secondary tiny" onclick="growForest(3)">Ağaçlar</button>
+        </div>
+
+        <div id="treeText" class="detailBox" style="width:min(620px, 100%);">
+          Senin adına dikilen ağaçlar... hepsi bir anda büyümedi.
+        </div>
+      </div>
+
+      <button class="primary" onclick="nextScene()">Devam et</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene7">
+    <div class="panel fade-up">
+      <h2>Küçük şeyler</h2>
+      <p>
+        Bazı şeyler büyük olduğu için değil,<br>
+        hatırlandığı için değerli oluyor.
+      </p>
+
+      <div class="cards">
+        <div class="card" onclick="showMoment('lale')">
+          <div class="emoji">🌷</div>
+          <div class="title">Bir lale</div>
+          <div class="desc">Küçük bir istek gibi duruyor. Ama bende daha büyük bir yer kaplıyor.</div>
+        </div>
+
+        <div class="card" onclick="showMoment('balon')">
+          <div class="emoji">🎈</div>
+          <div class="title">Kalpli balon</div>
+          <div class="desc">Bazen sadece tatlı bir şey istiyorsun. Ben de onu özel bir şeye çevirmek istiyorum.</div>
+        </div>
+
+        <div class="card" onclick="showMoment('foto')">
+          <div class="emoji">📸</div>
+          <div class="title">Bir fotoğraf</div>
+          <div class="desc">Bazen seni de beni de güldüren güzel anların ikonik kroluğu, bazen de hiç kapanmayan devamlı bakılan....</div>
+        </div>
+
+        <div class="card" onclick="showMoment('boo')">
+          <div class="emoji">💬</div>
+          <div class="title">İyi geceler Booooo’mm</div>
+          <div class="desc">Bazen tek bir hitap bile bütün günün en tatlı yeri olabiliyor.</div>
+        </div>
+      </div>
+
+      <div id="momentDetail" class="detailBox">
+        Bir karta dokun.
+      </div>
+
+      <button class="primary" onclick="nextScene()">Bir şey daha var</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene8">
+    <div class="panel fade-up">
+      <h2>Eğer yanında olabilseydim...</h2>
+      <p>Sana iki şey getirecektim.</p>
+
+      <div class="giftGrid">
+        <div class="giftCard roses">
+          <div class="giftIcon">🌹</div>
+          <h3>101 tane gül</h3>
+          <p>
+            Çünkü bazı şeyler az gelirdi.<br>
+            Ve evet... belki biraz abartı.<br>
+            Ama güllerin gülü söz konusu olunca normal davranamıyorum.
+          </p>
+        </div>
+
+        <div class="giftCard booGift">
+          <div class="booGirlIcon">
+            <div class="booHair"></div>
+            <div class="booFace"></div>
+            <div class="booBody"></div>
+          </div>
+          <h3>Bir tane Boo</h3>
+          <p>
+            Çünkü sen zaten benim Booo’msun.<br>
+            Bu sefer sana uykunda da Mugiş gibi eşlik edebilecek bir Boo...
+          </p>
+        </div>
+      </div>
+
+      <button class="primary" onclick="nextScene()">Son bir şey</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene9">
+    <div class="panel fade-up">
+      <h2>Güzeller güzelim...</h2>
+      <p>
+        sen benim için sıradan biri değilsin.<br><br>
+        Bazen çok tatlı, bazen çok akıllı,<br>
+        bazen de fark etmeden insanın içine yerleşen birisin.<br><br>
+        Sana karşı hissettiğim şey,<br>
+        basit bir hoşlanma, basit bir heves değil.<br><br>
+        Daha gerçek, daha derin ve daha özel geliyor.<br><br>
+        Aceleye getirmeden, bozup büyüsünü kaçırmadan...<br>
+        sadece şunu bilmeni istedim:<br><br>
+        <strong style="color:var(--text);">sen benim için gerçekten çok özelsin.</strong>
+      </p>
+
+      <button class="primary" onclick="nextScene()">İyi ki doğdun</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene10">
+    <div class="panel fade-up">
+      <div class="finalLine">
+        İyi ki doğdun...<br>
+        uzaktaki yakınım. ❤️
+      </div>
+      <p class="smallFinal">
+        Bu sadece sana bırakılmış küçük bir doğum günüydü.
+      </p>
+      <p class="smallFinal">Guciiguciiguu</p>
+
+      <div class="row">
+        <button class="secondary" onclick="restartStory()">Baştan izle</button>
+        <button class="primary" onclick="smileAndClose()">Gülümse ve çık 🙂</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let currentScene = 1;
+
+    function nextScene(){
+      const currentEl = document.getElementById("scene" + currentScene);
+      if(currentEl) currentEl.classList.remove("active");
+
+      currentScene++;
+
+      const nextEl = document.getElementById("scene" + currentScene);
+      if(nextEl) nextEl.classList.add("active");
+
+      if(currentScene === 5){
+        setTimeout(() => {
+          resetPear();
+        }, 30);
+      }
+
+      softBurst();
+    }
+
+    function restartStory(){
+      const currentEl = document.getElementById("scene" + currentScene);
+      if (currentEl) currentEl.classList.remove("active");
+
+      currentScene = 1;
+      document.getElementById("scene1").classList.add("active");
+
+      resetSudoku();
+      resetPear();
+      resetTree();
+      resetMoments();
+    }
+
+    let heartLoop = null;
+
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = Math.random() > 0.5 ? "❤" : "✦";
+      h.style.left = (Math.random() * 100) + "vw";
+      h.style.animationDuration = (6 + Math.random() * 4) + "s";
+      h.style.setProperty("--drift", (Math.random() * 80 - 40) + "px");
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 11000);
+    }
+
+    function startAmbientParticles(){
+      if(heartLoop) return;
+      heartLoop = setInterval(spawnHeart, 900);
+    }
+
+    function softBurst(){
+      for(let i = 0; i < 8; i++){
+        setTimeout(spawnHeart, i * 110);
+      }
+    }
+
+    function softBurstSmall(){
+      for(let i = 0; i < 4; i++){
+        setTimeout(spawnHeart, i * 90);
+      }
+    }
+
+    startAmbientParticles();
+
+    let puzzleStep = 0;
+    let puzzleDone = false;
+    const puzzleOrder = ["0", "3", "1", "2"];
+
+    function pickPuzzle(el){
+      if (puzzleDone) return;
+
+      const expected = puzzleOrder[puzzleStep];
+      const index = el.dataset.index;
+
+      if (index === expected){
+        el.classList.add("correct");
+        puzzleStep++;
+
+        if (puzzleStep === puzzleOrder.length){
+          puzzleDone = true;
+
+          setTimeout(() => {
+            const msg = document.getElementById("sudokuMessage");
+            msg.innerText = "SEN BENİM...";
+            msg.classList.add("show");
+          }, 350);
+
+          setTimeout(() => {
+            document.getElementById("sudokuSub").style.opacity = "1";
+          }, 800);
+
+          setTimeout(() => {
+            document.getElementById("sudokuNextBtn").classList.add("show");
+          }, 1200);
+
+          softBurst();
+        }
+      } else {
+        el.classList.remove("wrong");
+        void el.offsetWidth;
+        el.classList.add("wrong");
+      }
+    }
+
+    function resetSudoku(){
+      puzzleStep = 0;
+      puzzleDone = false;
+
+      document.querySelectorAll(".puzzleCell").forEach(cell => {
+        cell.classList.remove("correct", "wrong");
+      });
+
+      const msg = document.getElementById("sudokuMessage");
+      msg.classList.remove("show");
+      msg.innerText = "";
+
+      document.getElementById("sudokuSub").style.opacity = "0";
+      document.getElementById("sudokuNextBtn").classList.remove("show");
+    }
+
+    let pearStep = 0;
+    let pearDone = false;
+    const pearSegments = ["seg1", "seg2", "seg3", "seg4"];
+
+    function placePearPiece(){
+      if (pearDone) return;
+
+      const id = pearSegments[pearStep];
+      const el = document.getElementById(id);
+
+      if (el){
+        el.classList.remove(id + "-start");
+        void el.offsetWidth;
+        el.classList.add("seg-placed", "joined");
+        softBurstSmall();
+      }
+
+      pearStep++;
+
+      const hint = document.getElementById("pearHint");
+      const left = 4 - pearStep;
+
+      if (left > 0){
+        hint.innerText = left + " dokunuş daha";
+      } else {
+        hint.classList.add("hide");
+      }
+
+      if (pearStep === 4){
+        finishPear();
+      }
+    }
+
+    function finishPear(){
+      pearDone = true;
+
+      setTimeout(() => {
+        document.getElementById("pearStemSvg").classList.add("show");
+        document.getElementById("pearLeafSvg").classList.add("show");
+      }, 200);
+
+      setTimeout(() => {
+        document.getElementById("pearGlow").classList.add("show");
+      }, 360);
+
+      setTimeout(() => {
+        const text = document.getElementById("pearText");
+        text.innerText = "...UZAKTAKİ YAKINIMSIN";
+        text.classList.add("show");
+      }, 760);
+
+      setTimeout(() => {
+        document.getElementById("pearSub").style.opacity = "1";
+      }, 1050);
+
+      setTimeout(() => {
+        document.getElementById("pearNextBtn").classList.add("show");
+      }, 1350);
+
+      softBurst();
+    }
+
+    function resetPear(){
+      pearStep = 0;
+      pearDone = false;
+
+      const segMap = {
+        seg1: "seg1-start",
+        seg2: "seg2-start",
+        seg3: "seg3-start",
+        seg4: "seg4-start"
+      };
+
+      Object.keys(segMap).forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        el.classList.remove("seg-placed", "joined", "seg1-start", "seg2-start", "seg3-start", "seg4-start");
+        void el.offsetWidth;
+        el.classList.add("pear-seg", segMap[id]);
+      });
+
+      document.getElementById("pearStemSvg").classList.remove("show");
+      document.getElementById("pearLeafSvg").classList.remove("show");
+      document.getElementById("pearGlow").classList.remove("show");
+
+      const hint = document.getElementById("pearHint");
+      hint.classList.remove("hide");
+      hint.innerText = "4 kez dokun";
+
+      const text = document.getElementById("pearText");
+      text.classList.remove("show");
+      text.innerText = "";
+
+      document.getElementById("pearSub").style.opacity = "0";
+      document.getElementById("pearNextBtn").classList.remove("show");
+    }
+
+    function growForest(level){
+      const trees = document.querySelectorAll(".forestTree");
+      const txt = document.getElementById("treeText");
+
+      trees.forEach(tree => {
+        tree.classList.remove("small", "medium", "large");
+
+        if(level === 1){
+          tree.classList.add("small");
+        } else if(level === 2){
+          tree.classList.add("medium");
+        } else {
+          tree.classList.add("large");
+        }
+      });
+
+      if(level === 1){
+        txt.innerText = "Senin adına dikilen fidanlar... hepsi bir anda büyümedi.";
+      } else if(level === 2){
+        txt.innerText = "Bazı şeyler yavaş yavaş büyüyor. Ama büyüdüğünü hissediyorsun.";
+      } else {
+        txt.innerText = "Ağaçların da kendi zamanı var. Sanırım bazı şeyler de tam böyle.";
+      }
+    }
+
+    function resetTree(){
+      growForest(1);
+    }
+
+    function showMoment(type){
+      const box = document.getElementById("momentDetail");
+
+      const data = {
+        lale: "Bazen gün içerisinde modunun düşük olduğu zamanlarda, bakıp mutlu olduğun ve gerçekten bir emek verildiğinin canlı örneği.Laleler solabilir ama hatırası kalacaktır..",
+        balon: "Senden gelen bir istek bazen çok basit olsa da onlara bakıp bakıp gülümseyip o gün yaşadağın mutluluğu hatırlamak basit bir şeyi çok kıymetli kılıyor.",
+        foto: "Kimisi komik kimisi de insanı eritiyor... ama o fotoğraflar bende hep ‘güzel bir şey oldu’ hissi bırakıyor.",
+        boo: "Bazı hitaplar sadece kelime değil. Bir yerden sonra insanın içini ısıtan bir şeye dönüşüyor."
+      };
+
+      box.innerText = data[type] || "Bir karta dokun.";
+    }
+
+    function resetMoments(){
+      const box = document.getElementById("momentDetail");
+      if (box) box.innerText = "Bir karta dokun.";
+    }
+
+    function smileAndClose(){
+      window.close();
+
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <div style="
+            margin:0;
+            width:100vw;
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#0b0b0f;
+            color:#f5f3ef;
+            font-family:Arial, Helvetica, sans-serif;
+            text-align:center;
+            padding:24px;
+          ">
+            <div>
+              <div style="font-size:40px; font-weight:800; margin-bottom:14px;">🙂</div>
+              <div style="font-size:24px; font-weight:700; margin-bottom:10px;">Tamamdır Booooo’mm</div>
+              <div style="opacity:.7;">Bu sekmeyi kapatabilirsin.</div>
+            </div>
+          </div>
+        `;
+      }, 150);
+    }
+  </script>
+</body>
+</html>
