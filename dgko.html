@@ -937,23 +937,38 @@
   <script>
     let currentScene = 1;
 
-    function nextScene(){
-      const currentEl = document.getElementById("scene" + currentScene);
-      if(currentEl) currentEl.classList.remove("active");
+function nextScene(){
+  const currentEl = document.getElementById("scene" + currentScene);
+  if(currentEl) currentEl.classList.remove("active");
 
-      currentScene++;
+  currentScene++;
 
-      const nextEl = document.getElementById("scene" + currentScene);
-      if(nextEl) nextEl.classList.add("active");
+  const nextEl = document.getElementById("scene" + currentScene);
+  if(nextEl) nextEl.classList.add("active");
 
-      if(currentScene === 5){
-        setTimeout(() => {
-          resetPear();
-        }, 30);
+  // 🎧 MÜZİK BAŞLAT
+  if(currentScene === 2){
+    const audio = document.getElementById("bgMusic");
+    audio.volume = 0;
+    audio.play();
+
+    let fade = setInterval(() => {
+      if(audio.volume < 0.6){
+        audio.volume += 0.02;
+      } else {
+        clearInterval(fade);
       }
+    }, 200);
+  }
 
-      softBurst();
-    }
+  // 🔥 finalde yükselt
+  if(currentScene === 9){
+    const audio = document.getElementById("bgMusic");
+    audio.volume = 0.8;
+  }
+
+  softBurst();
+}
 
     function restartStory(){
       const currentEl = document.getElementById("scene" + currentScene);
@@ -1229,5 +1244,8 @@
       }, 150);
     }
   </script>
+  <audio id="bgMusic" loop>
+  <source src="mutlu-yillar.mp3" type="audio/mp3">
+</audio>
 </body>
 </html>
