@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAYAAAA</title>
+
+<style>
+:root{
+  --bg:#070707;
+  --text:#ffffff;
+  --pink:#ff4d8d;
+  --pink2:#ff2d55;
+  --muted:rgba(255,255,255,.78);
+}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(1200px 650px at 50% 30%, rgba(255,77,141,.16), transparent 60%),
+    radial-gradient(900px 520px at 30% 70%, rgba(255,45,85,.12), transparent 60%),
+    radial-gradient(700px 520px at 80% 65%, rgba(255,77,141,.08), transparent 62%),
+    var(--bg);
+  color:var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.wrap{
+  width:min(900px, 96vw);
+  text-align:center;
+  padding:24px;
+}
+
+h1{ margin:0; font-size:60px; letter-spacing:6px; }
+p{ color:var(--muted); }
+
+.panel{
+  display:none;
+  margin-top:20px;
+  padding:40px;
+  border-radius:22px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  min-height:280px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+.question{ font-size:30px; margin-bottom:30px; }
+
+.stage{
+  position:relative;
+  width:100%;
+  height:220px;
+}
+
+button{
+  padding:16px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  min-width:150px;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s, box-shadow .2s, background .2s, color .2s, left .14s, top .14s;
+}
+
+/* EVET */
+#yesBtn{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-120%, -50%);
+  background:#fff;
+  color:#000;
+  z-index:2;
+  box-shadow: 0 16px 44px rgba(255,45,85,.18);
+}
+#yesBtn:hover{
+  transform:translate(-120%, -51%);
+  box-shadow: 0 18px 54px rgba(255,45,85,.24);
+}
+
+/* HAYIR görünsel (tıklanamaz) */
+#noBtn{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(20%, -50%);
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+  z-index:3;
+  pointer-events:none;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+#noHitbox{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(20%, -50%);
+  width:200px;
+  height:78px;
+  z-index:4;
+  background:transparent;
+}
+
+/* Final paneller */
+.final{
+  display:none;
+  margin-top:20px;
+  padding:28px;
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,77,141,.12), rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+.story{ display:none; margin-top:20px; }
+.storyLine{
+  margin:10px auto;
+  width:90%;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.08);
+}
+.miniBtn{
+  margin-top:16px;
+  background:linear-gradient(90deg, var(--pink), var(--pink2));
+  color:white;
+  box-shadow: 0 16px 46px rgba(255,45,85,.22);
+}
+.miniBtn:hover{ transform: translateY(-1px); }
+
+/* Hearts */
+.heart{
+  position:fixed;
+  bottom:-24px;
+  font-size:16px;
+  opacity:.55;
+  filter: drop-shadow(0 8px 14px rgba(255,45,85,.35));
+  animation: floatUp linear forwards;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  from{ transform: translateY(0) translateX(0) scale(.95); opacity:0 }
+  15%{ opacity:.55 }
+  to{ transform: translateY(-110vh) translateX(var(--drift)) scale(1.1); opacity:0 }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div id="intro">
+    <h1>M A Y A </h1>
+    <p>24 KASIM 2025...</p>
+  </div>
+
+  <div id="questionPanel" class="panel">
+    <div class="question">Hikâyeye devam edelim mi?</div>
+
+    <div id="stage" class="stage">
+      <button id="yesBtn">EVET</button>
+
+      <button id="noBtn" tabindex="-1" aria-hidden="true">HAYIR</button>
+      <div id="noHitbox" aria-label="Hayır"></div>
+    </div>
+  </div>
+  
+  <div id="finalPanel" class="final">
+    <h2>Güzel 🙂</h2>
+    <p>O zaman devam ediyoruz...</p>
+
+    <div id="story" class="story">
+      <div class="storyLine"><b>24.11.2025</b> — Hikâye'nin başlangıç günü </div>
+	  <div class="storyLine"><b>07.02.2026</b> — Kapanmayacak Bir Fotoğraf...</div>
+      <div class="storyLine"><b>14.02.2026</b> — Bugünümüz 🌹🌹🌹</div>
+      <div class="storyLine">Bunu özellikle <b>00:00</b>’a ayarladım 😄</div>
+      <div class="storyLine">Bu sayfayı dünyada sadece <b>2 kişi</b> biliyor.</div>
+      <button id="continueBtn" class="miniBtn">Devam</button>
+    </div>
+  </div>
+
+  <div id="endPanel" class="final">
+    <h2>Hikâye devam ediyor...</h2>
+	<p><b>Ve şimdi tek bir şey kaldı.</b></p>
+    <p><b>Gülümsemen yeter</b> 🙂🙂🙂</p>
+  </div>
+</div>
+
+<script>
+/* Hearts: sürekli, tüm sayfalarda */
+let heartsLoop = null;
+function spawnHeart(){
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = "❤";
+  const left = Math.random() * 100;
+  const duration = 6 + Math.random() * 4;
+  const drift = (Math.random() * 90 - 45) + "px";
+  h.style.left = left + "vw";
+  h.style.animationDuration = duration + "s";
+  h.style.setProperty("--drift", drift);
+  document.body.appendChild(h);
+  setTimeout(()=> h.remove(), (duration + 0.2) * 1000);
+}
+function startHearts(){
+  if (heartsLoop) return;
+  heartsLoop = setInterval(spawnHeart, 850);
+}
+function burstHearts(){
+  for (let i=0;i<10;i++) setTimeout(spawnHeart, i*120);
+}
+startHearts();
+
+/* Intro -> soru */
+setTimeout(()=>{
+  intro.style.display="none";
+  questionPanel.style.display="block";
+  // Panel açıldığı anda mouseenter tetiklenmesini engellemek için:
+  armed = false;
+},2000);
+
+/* Hayır yakalanamaz (hitbox) */
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const noHitbox = document.getElementById("noHitbox");
+const stage = document.getElementById("stage");
+
+let cooldown = false;
+let armed = false; // ✅ kullanıcı gerçekten mouse oynatınca true olacak
+
+function rectInStage(el){
+  const s = stage.getBoundingClientRect();
+  const r = el.getBoundingClientRect();
+  return {
+    left: r.left - s.left,
+    right: r.right - s.left,
+    top: r.top - s.top,
+    bottom: r.bottom - s.top,
+    width: r.width,
+    height: r.height,
+    stageW: s.width,
+    stageH: s.height
+  };
+}
+function overlaps(a,b,pad=14){
+  return !(
+    a.right + pad < b.left ||
+    a.left - pad > b.right ||
+    a.bottom + pad < b.top ||
+    a.top - pad > b.bottom
+  );
+}
+function setNoPosition(x, y){
+  noBtn.style.left = x + "px";
+  noBtn.style.top  = y + "px";
+  noBtn.style.transform = "none";
+
+  noHitbox.style.left = x + "px";
+  noHitbox.style.top  = y + "px";
+  noHitbox.style.transform = "none";
+}
+function moveNoRandom(force=false){
+  if (!force && cooldown) return;
+
+  const yesR = rectInStage(yesBtn);
+  const sW = yesR.stageW;
+  const sH = yesR.stageH;
+
+  const btnW = noBtn.offsetWidth;
+  const btnH = noBtn.offsetHeight;
+
+  const pad = 6;
+  const maxX = Math.max(pad, sW - btnW - pad);
+  const maxY = Math.max(pad, sH - btnH - pad);
+
+  let x = pad, y = pad, tries = 0;
+  while(tries < 180){
+    const rx = pad + Math.random() * (maxX - pad);
+    const ry = pad + Math.random() * (maxY - pad);
+    const noR = { left: rx, right: rx + btnW, top: ry, bottom: ry + btnH };
+    if (!overlaps(noR, yesR, 18)) { x = rx; y = ry; break; }
+    tries++;
+  }
+
+  setNoPosition(x, y);
+
+  cooldown = true;
+  setTimeout(()=> cooldown = false, 110);
+}
+
+/* ✅ ARMING: ilk gerçek mouse hareketinde aktif et */
+stage.addEventListener("mousemove", () => {
+  if (!armed) armed = true;
+}, { passive:true });
+
+/* HAYIR: sadece ARMED olduktan sonra kaç */
+noHitbox.addEventListener("mouseenter", ()=>{
+  if (!armed) return;       // ✅ panel açılır açılmaz tetiklenen mouseenter’ı yok say
+  moveNoRandom();
+});
+
+stage.addEventListener("mousemove",(e)=>{
+  if (!armed) return;       // ✅ kullanıcı gerçekten mouse oynatmadıysa kaçma yok
+  const r = noHitbox.getBoundingClientRect();
+  const dx = e.clientX - (r.left + r.width/2);
+  const dy = e.clientY - (r.top + r.height/2);
+  const dist = Math.sqrt(dx*dx+dy*dy);
+  if(dist < 120) moveNoRandom();
+});
+
+/* Tıklama / dokunma: mouse için ARMED şart, touch için direkt kaçsın */
+["pointerdown","mousedown","click"].forEach(evt=>{
+  noHitbox.addEventListener(evt,(e)=>{
+    e.preventDefault();
+    if (!armed) return;     // ✅ “panel açılır açılmaz” click hissini de yok eder
+    moveNoRandom(true);
+  });
+});
+
+noHitbox.addEventListener("touchstart",(e)=>{
+  e.preventDefault();
+  // mobilde ARMED şartı yok: dokunur dokunmaz kaçsın
+  moveNoRandom(true);
+}, {passive:false});
+
+noHitbox.addEventListener("contextmenu",(e)=> e.preventDefault());
+
+/* EVET akışı */
+yesBtn.onclick=()=>{
+  burstHearts();
+  questionPanel.style.display="none";
+  finalPanel.style.display="block";
+  setTimeout(()=> story.style.display="block", 1200);
+};
+continueBtn.onclick=()=>{
+  finalPanel.style.display="none";
+  endPanel.style.display="block";
+};
+</script>
+
+</body>
+</html>
+
